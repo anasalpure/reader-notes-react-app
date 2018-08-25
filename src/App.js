@@ -10,6 +10,10 @@ class BooksApp extends React.Component {
   state = {
 
   }
+  
+  AddBook(book){
+    console.log ('hi from AddBook method' , book);
+  }
 
   render() {
     return (
@@ -17,7 +21,15 @@ class BooksApp extends React.Component {
       <BrowserRouter> 
         <Switch> 
           <Route exact path='/'   render={ () => (<HomePage/>) } />
-          <Route  path="/search"  render={ () => (<SearchPage/>) } />
+          <Route  path="/search"  render={ ({history}) => (
+                                  <SearchPage
+                                    onAddNewBook={(book) => {
+                                      this.AddBook(book)
+                                      history.push('/')
+                                    }}
+                                  />
+                                )}
+          />
         </Switch>
       </BrowserRouter>
       </div>
