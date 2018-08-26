@@ -44,7 +44,7 @@ class SearchPage extends Component
                     <div className="search-books-input-wrapper">
                         <input type="text" placeholder="Search by title or author" onChange={ this.search } list="BooksCats"/>
                         <datalist id="BooksCats"> 
-                           {booksKeywords.map( cat => <option value={cat} /> ) }
+                           {booksKeywords.map( (cat ,index) => <option key={index} value={cat}  /> ) }
                         </datalist>
 
                     </div>

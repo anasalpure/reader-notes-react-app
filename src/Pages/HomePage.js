@@ -13,33 +13,37 @@ class HomePage extends Component
     Read : [] ,
   }
 
-  componentDidMount(){
-        BooksAPI.getAll()
-            .then( books=>{ if(books.error) return ;
-                            let currentlyReading=  [] ,
-                                wantToRead= [] ,
-                                Read =[] ;
-                            // filing previous three arrays with books according to shelf property
-                            for(let book of books){
-                              if(book['shelf']){
-                                if(book['shelf'] == 'read')
-                                  Read.push(book);
-                                else if(book['shelf'] == 'wantToRead')
-                                  wantToRead.push(book)
-                                else if(book['shelf'] == 'currentlyReading')
-                                  currentlyReading.push(book)
-                              }
-                            }
-                            // shange the state 
-                            this.setState({
-                              currentlyReading :currentlyReading ,
-                              wantToRead : wantToRead ,
-                              Read : Read ,
-                            })
-                            
-                  })
-            .catch( err =>console.log(err)  )
 
+  componentDidMount(){
+    this.fetchBooks();
+  }
+
+  fetchBooks=()=>{
+    BooksAPI.getAll()
+    .then( books=>{ if(books.error) return ;
+                    let currentlyReading=  [] ,
+                        wantToRead= [] ,
+                        Read =[] ;
+                    // filing previous three arrays with books according to shelf property
+                    for(let book of books){
+                      if(book['shelf']){
+                        if(book['shelf'] == 'read')
+                          Read.push(book);
+                        else if(book['shelf'] == 'wantToRead')
+                          wantToRead.push(book)
+                        else if(book['shelf'] == 'currentlyReading')
+                          currentlyReading.push(book)
+                      }
+                    }
+                    // shange the state 
+                    this.setState({
+                      currentlyReading :currentlyReading ,
+                      wantToRead : wantToRead ,
+                      Read : Read ,
+                    })
+                    
+          })
+    .catch( err =>console.log(err)  )
   }
 
   render(){
@@ -56,7 +60,7 @@ class HomePage extends Component
                   <ol className="books-grid">
 
                     {this.state.currentlyReading.map( (book ,index) =>
-                              <li key={index}> <BookItem book={book}/></li>
+                              <li key={index}> <BookItem notify={this.fetchBooks} book={book}/></li>
                     )} 
          
                   </ol>
@@ -68,7 +72,7 @@ class HomePage extends Component
                   <ol className="books-grid">
 
                     {this.state.wantToRead.map( (book ,index) =>
-                                <li key={index}> <BookItem book={book}/></li>
+                                <li key={index}> <BookItem notify={this.fetchBooks} book={book}/></li>
                     )} 
 
                   </ol>
@@ -79,7 +83,7 @@ class HomePage extends Component
                 <div className="bookshelf-books">
                   <ol className="books-grid">
                     {this.state.Read.map( (book ,index) =>
-                              <li key={index}> <BookItem book={book}/></li>
+                              <li key={index}> <BookItem notify={this.fetchBooks} book={book}/></li>
                     )} 
                   </ol>
                 </div>
