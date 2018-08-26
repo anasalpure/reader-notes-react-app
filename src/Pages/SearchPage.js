@@ -26,19 +26,19 @@ class SearchPage extends Component
     }
 
     render (){
-        console.log(this.state.books);
-        const { books } = this.state
+        const { books } = this.state ;
+        const { onAddNewBook } =this.props ;
         return (
             <div className="search-books">
                 <div className="search-books-bar">
-                    <a className="close-search" onClick={() =>{ } }>Close</a>
+                    <a className="close-search" onClick= {()=>onAddNewBook('hi') }>Close</a>
                     <div className="search-books-input-wrapper">
                         <input type="text" placeholder="Search by title or author" onChange={ this.search }/>
                     </div>
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid" >  
-                        {books && books.map( book=><li> <BookItem book={book} /> </li>  )}     
+                        {books && books.map( (book , index )=><li key={index}> <BookItem book={book} /> </li>  )}     
                     </ol>
                 </div>
             </div>
