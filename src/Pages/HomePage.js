@@ -1,8 +1,10 @@
 
 import React ,{Component}  from 'react' ;
 import * as BooksAPI from '../BooksAPI'
-import BookItem from '../Components/BookItem'
 import {Link} from 'react-router-dom'
+import BookItem from '../Components/BookItem'
+import SnackBar from '../Components/SnackBar'
+
 
 
 class HomePage extends Component
@@ -11,14 +13,25 @@ class HomePage extends Component
     currentlyReading :[] ,
     wantToRead : [] ,
     Read : [] ,
+    SBarMessage : null ,
   }
+
+
+show=( massage ='loading...' , milliseconds = 1200  )=>{
+    this.setState({SBarMessage: massage })
+    setTimeout(() => {
+        this.setState({SBarMessage:null})
+    }, milliseconds);
+}
 
 
   componentDidMount(){
     this.fetchBooks();
+    this.show('content is ready')
   }
 
   fetchBooks=()=>{
+    this.show()
     BooksAPI.getAll()
     .then( books=>{ if(books.error) return ;
                     let currentlyReading=  [] ,
@@ -40,10 +53,9 @@ class HomePage extends Component
                       currentlyReading :currentlyReading ,
                       wantToRead : wantToRead ,
                       Read : Read ,
-                    })
-                    
+                    })         
           })
-    .catch( err =>console.log(err)  )
+    .catch( err =>this.show('fail to update')  )
   }
 
   render(){
@@ -82,9 +94,11 @@ class HomePage extends Component
                 <h2 className="bookshelf-title">Read</h2>
                 <div className="bookshelf-books">
                   <ol className="books-grid">
+
                     {this.state.Read.map( (book ,index) =>
                               <li key={index}> <BookItem notify={this.fetchBooks} book={book}/></li>
                     )} 
+                    
                   </ol>
                 </div>
               </div>
@@ -93,6 +107,9 @@ class HomePage extends Component
           <div className="open-search">
             <Link to="/search" >Add a book</Link>
           </div>
+
+          <SnackBar message={this.state.SBarMessage} /> 
+
       </div>
     )
   }
