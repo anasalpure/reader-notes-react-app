@@ -1,4 +1,5 @@
 .snack-bar {
+    z-index: 1300;
     display: block;
     position: fixed;
     bottom: 0;

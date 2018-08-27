@@ -25,9 +25,9 @@ class BookItem extends Component {
             shelf 
         })
         //update remote data
-        console.log(this.props.book , shelf )
+
         BooksAPI.update(this.props.book , shelf )
-                .then( data=>console.log(data) )
+                .then( data=>console.log('data updated successfully') )
 
         //re-render if notify function exist
         if(this.props.notify)this.props.notify();

@@ -18,13 +18,13 @@ class BooksApp extends React.Component {
   }
 
 
-show=( massage ='loading...' , milliseconds = 1200  )=>{
-    this.setState({SBarMessage: massage })
-    setTimeout(() => {
-        this.setState({SBarMessage:null})
-    }, milliseconds);
-}
-
+  show=( massage ='loading...' , milliseconds = 1400  )=>{
+      this.setState({SBarMessage: massage })
+      setTimeout(() => {
+          this.setState({SBarMessage:null})
+      }, milliseconds);
+  }
+  
 
   componentDidMount(){
     this.fetchBooks();
@@ -75,7 +75,12 @@ show=( massage ='loading...' , milliseconds = 1200  )=>{
             /> 
            )} />
 
-          <Route  path="/search"  render={ () => ( <SearchPage/> )} />
+          <Route  path="/search"  render={ () => ( 
+            <SearchPage notify={this.fetchBooks} 
+                        show = { (m , ms)=> this.show(m ,ms)}
+                        myBooks={[...currentlyReading ,...wantToRead ,...Read ]}
+            /> )
+          } />
 
         </Switch>
       </BrowserRouter>
