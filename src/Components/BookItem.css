@@ -1,0 +1,97 @@
+.book {
+    width: 140px;
+}
+.book-title,
+.book-authors {
+    font-size: 0.8em;
+}
+.book-title {
+    margin-top: 10px;
+}
+.book-authors {
+    color: #999;
+}
+
+.book-top {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.book-top.focusable:focus ,
+.book-top.focusable:hover {
+    outline: none;
+    box-shadow: -5px 6px 5px rgb(97, 97, 97);
+}
+
+.book-shelf-changer {
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #60ac5d;
+    background-image: url('../icons/arrow-drop-down.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.book-shelf-changer select {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* book cover */
+
+.book-cover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background: #eee;
+}
+.book-cover-title {
+    padding: 20px 10px 0;
+    text-align: center;
+    font-size: 0.8em;
+}
+    
+.dropdown-menu{
+    z-index: 1500;
+    background: #1eb98f;
+    position: absolute;
+    border: 1px solid rgb(169, 169, 169);
+    border-radius: 3px;
+    padding: 5px 0;
+    right: 4px;
+    top: -143px;
+    -moz-user-select: none;
+    user-select: none;
+    box-shadow: -1px -1px 5px #000;
+    display: none ;
+}
+.dropdown-menu.show{
+    display: block ;
+}
+
+.dropdown-menu .menu-item {
+    color: #fff;
+    white-space: nowrap;
+    display: block;
+    padding: 1px;
+}
+.dropdown-menu .menu-item:hover ,
+.dropdown-menu .menu-item:focus {
+    background: #2a9c7e
+}
+
+.dropdown-menu .menu-item.active {
+    background: #1fa582;
+}
+
+.dropdown-menu .menu-item.disabled {
+   color:#d2d2d2;
+}
+

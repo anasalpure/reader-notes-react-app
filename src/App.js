@@ -32,7 +32,7 @@ class BooksApp extends React.Component {
   }
 
   fetchBooks=()=>{
-    this.show()
+    this.show('loading...' , 4000)
     BooksAPI.getAll()
     .then( books=>{ if(books.error) return ;
                     let currentlyReading=  [] ,
@@ -50,6 +50,7 @@ class BooksApp extends React.Component {
                       }
                     }
                     // shange the state 
+                    this.show('ready.' ,600)
                     this.setState({
                       currentlyReading :currentlyReading ,
                       wantToRead : wantToRead ,
@@ -61,7 +62,8 @@ class BooksApp extends React.Component {
 
 
   render() {
-    const {currentlyReading , wantToRead ,Read , SBarMessage} =this.state
+    const {currentlyReading , wantToRead ,Read , SBarMessage} =this.state ;
+
     return (
       <div className="app">
       <BrowserRouter> 
