@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import BookItem from '../Components/BookItem'
 
 
-function HomePage({currentlyReading , wantToRead ,Read , notify}){
+function HomePage({currentlyReading , wantToRead ,read , notify}){
 
   return(
     <div className="list-books">
@@ -18,8 +18,8 @@ function HomePage({currentlyReading , wantToRead ,Read , notify}){
               <div className="bookshelf-books">
                 <ol className="books-grid">
 
-                  {currentlyReading.map( (book ,index) =>
-                            <li key={index}> <BookItem notify={notify} book={book}/></li>
+                  {currentlyReading.map(
+                          book =>  <li key={book['id']}> <BookItem notify={notify} book={book}/></li>
                   )} 
         
                 </ol>
@@ -30,8 +30,8 @@ function HomePage({currentlyReading , wantToRead ,Read , notify}){
               <div className="bookshelf-books">
                 <ol className="books-grid">
 
-                  {wantToRead.map( (book ,index) =>
-                              <li key={index}> <BookItem notify={notify} book={book}/></li>
+                  {wantToRead.map(
+                          book =>  <li key={book['id']}> <BookItem notify={notify} book={book}/></li>
                   )} 
 
                 </ol>
@@ -42,8 +42,8 @@ function HomePage({currentlyReading , wantToRead ,Read , notify}){
               <div className="bookshelf-books">
                 <ol className="books-grid">
 
-                  {Read.map( (book ,index) =>
-                            <li key={index}> <BookItem notify={notify} book={book}/></li>
+                  {read.map(
+                          book =>  <li key={book['id']}> <BookItem notify={notify} book={book}/></li>
                   )} 
 
                 </ol>

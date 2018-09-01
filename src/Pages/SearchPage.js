@@ -66,7 +66,7 @@ class SearchPage extends Component
                 <div className="search-books-results">
                    <div> There are {books.length} books available </div>
                     <ol className="books-grid" >  
-                        {books && books.map( (book , index )=><li key={index}> <BookItem book={book} notify={this.props.notify} /> </li>  )}     
+                        {books && books.map( book => <li key={book['id']}> <BookItem book={book} notify={this.props.notify} /> </li>  )}     
                     </ol>
                 </div>
             </div>

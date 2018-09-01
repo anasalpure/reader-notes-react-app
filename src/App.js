@@ -13,7 +13,7 @@ class BooksApp extends React.Component {
   state = {
     currentlyReading :[] ,
     wantToRead : [] ,
-    Read : [] ,
+    read : [] ,
     SBarMessage : null ,
   }
 
@@ -35,26 +35,18 @@ class BooksApp extends React.Component {
     this.show('loading...' , 4000)
     BooksAPI.getAll()
     .then( books=>{ if(books.error) return ;
-                    let currentlyReading=  [] ,
-                        wantToRead= [] ,
-                        Read =[] ;
-                    // filing previous three arrays with books according to shelf property
-                    for(let book of books){
-                      if(book['shelf']){
-                        if(book['shelf'] == 'read')
-                          Read.push(book);
-                        else if(book['shelf'] == 'wantToRead')
-                          wantToRead.push(book)
-                        else if(book['shelf'] == 'currentlyReading')
-                          currentlyReading.push(book)
-                      }
-                    }
+
+                    // filing  arrays with books according to shelf property
+                    const read = books.filter(book => book['shelf'] === 'read');
+                    const wantToRead = books.filter(book => book['shelf'] === 'wantToRead');
+                    const currentlyReading = books.filter(book => book['shelf'] === 'currentlyReading');
+
                     // shange the state 
                     this.show('ready.' ,600)
                     this.setState({
                       currentlyReading :currentlyReading ,
                       wantToRead : wantToRead ,
-                      Read : Read ,
+                      read : read ,
                     })         
           })
     .catch( err =>this.show('fail to update')  )
@@ -62,7 +54,7 @@ class BooksApp extends React.Component {
 
 
   render() {
-    const {currentlyReading , wantToRead ,Read , SBarMessage} =this.state ;
+    const {currentlyReading , wantToRead ,read , SBarMessage} =this.state ;
 
     return (
       <div className="app">
@@ -73,14 +65,14 @@ class BooksApp extends React.Component {
             <HomePage notify={this.fetchBooks} 
                       currentlyReading ={currentlyReading} 
                       wantToRead ={wantToRead} 
-                      Read ={Read} 
+                      read ={read} 
             /> 
            )} />
 
           <Route  path="/search"  render={ () => ( 
             <SearchPage notify={this.fetchBooks} 
                         show = { (m , ms)=> this.show(m ,ms)}
-                        myBooks={[...currentlyReading ,...wantToRead ,...Read ]}
+                        myBooks={[...currentlyReading ,...wantToRead ,...read ]}
             /> )
           } />
 
