@@ -44,10 +44,13 @@ class BookItem extends Component {
         //update remote data
 
         BooksAPI.update(this.props.book , shelf )
-                .then( data=>console.log('data updated successfully') )
+                .then( data=>{
+                    console.log('data updated successfully') ;
+                    // moving a book to another shelf => should update the state
+                    //re-render if notify function exist
+                    if(this.props.notify)this.props.notify();
+                })
 
-        //re-render if notify function exist
-        if(this.props.notify)this.props.notify();
     }
 
     DropdownHandler =(event)=>{
